@@ -19,6 +19,7 @@ import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private static final String TAG = DetailActivity.class.getSimpleName();
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
 
@@ -38,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
         int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
         if (position == DEFAULT_POSITION) {
             // EXTRA_POSITION not found in intent
-            Log.e("Detail Activity:", "Extra position not found in detail intent");
+            Log.e(TAG, "Extra position not found in detail intent");
             closeOnError();
             return;
         }
@@ -54,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (sandwich == null) {
             // Sandwich data unavailable
-            Log.e("Detail Activity:", "Problem parsing sandwich from json");
+            Log.e(TAG, "Problem parsing sandwich from json");
             closeOnError();
             return;
         }
@@ -89,8 +90,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView ingredientsView = findViewById(R.id.ingredients_tv);
         TextView descriptionView = findViewById(R.id.description_tv);
         //set values to views from object
-        originView.setText(sandwich.getPlaceOfOrigin() + "\n");
-        descriptionView.setText(sandwich.getDescription() + "\n");
+        originView.setText(getString(R.string.place_of_origin_content, sandwich.getPlaceOfOrigin()));
+        descriptionView.setText(getString(R.string.descritption_conent, sandwich.getDescription()));
         //setting values in the array to the views
         List<String> ingredientsArray = sandwich.getIngredients();
         // "\n" is for layout consistency when missing content
